@@ -59,11 +59,14 @@ class BinarySearch:
 
     def traverse_height(self, node):
         if not node:
-            return -1
-        return 1 + max(self.traverse_height(node.left), self.traverse_height(node.right))
+            return 0
+        left_height = self.traverse_height(node.left)
+        right_height = self.traverse_height(node.right)
+        current_height = 1 + max(left_height, right_height)
+        return current_height
 
     def height(self):
-        return self.traverse_height(self.root)
+        return self.traverse_height(self.root) + 1 if self.root else 0
 
     def traverse_count_leaves(self, node):
         if not node:
@@ -97,6 +100,7 @@ class BinarySearch:
     def deserialize(self, tree):
         nodes = tree.split(',')
         self.root = self.deserialize_recursive(nodes)
+        
 
 bst = BinarySearch()
 bst.insert(10)
@@ -111,7 +115,7 @@ print(bst.search(9))
 print(bst.in_order_traversal())  
 print(bst.find_min()) 
 print(bst.find_max())  
-print(bst.height()) 
+print(bst.height())  
 print(bst.count_leaves()) 
 
 serialized_tree = bst.serialize()
@@ -120,6 +124,8 @@ print(serialized_tree)
 new_bst = BinarySearch()
 new_bst.deserialize(serialized_tree)
 print(new_bst.in_order_traversal())
+
+
 
 
         
